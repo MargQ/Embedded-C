@@ -1,61 +1,61 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-int main()
+int main() {
+    int N;
 
-{
-    int N = 0;
-    int counter = 1;
-
+    // Запрашиваем у пользователя размер матрицы
     printf("Enter N: ");
-    scanf("%d",&N);
+    scanf("%d", &N);
 
-    int matrix[N][N];
-    int Ibeg = 0, Ifin = 0, Jbeg = 0, Jfin = 0;
+    // Определяем квадратную матрицу размером N x N
+    int matrix[N][N];    
 
-    int k = 1;
-    int i = 0;
-    int j = 0;
+    int Ibeg = 0, Ifin = 0; // Границы строк сверху и снизу
+    int Jbeg = 0, Jfin = 0; // Границы столбцов слева и справа
 
-    while (k <= N * N)
+    int k = 1;  // Текущее значение для заполнения ячейки матрицы
+    int i = 0;           
+    int j = 0;           
 
-    {
-        matrix[i][j] = k;
-        if (i == Ibeg && j < N - Jfin - 1)
+    // Основной цикл: заполняем матрицу значениями от 1 до N*N
+    while (k <= N * N) {
+        matrix[i][j] = k; // Записываем текущее значение в ячейку матрицы
 
+        // Двигаемся вправо, пока не дойдём до правой границы
+        if (i == Ibeg && j < N - Jfin - 1) {
             ++j;
-
-        else if (j == N - Jfin - 1 && i < N - Ifin - 1)
-
-            ++i;
-
-        else if (i == N - Ifin - 1 && j > Jbeg)
-
-            --j;
-
-        else
-            --i;
-
-        if ((i == Ibeg + 1) && (j == Jbeg) && (Jbeg != N - Jfin - 1))
-
-        {
-            ++Ibeg;
-            ++Ifin;
-            ++Jbeg;
-            ++Jfin;
         }
+        // Двигаемся вниз, пока не дойдём до нижней границы
+        else if (j == N - Jfin - 1 && i < N - Ifin - 1) {
+            ++i;
+        }
+        // Двигаемся влево, пока не дойдём до левой границы
+        else if (i == N - Ifin - 1 && j > Jbeg) {
+            --j;
+        }
+        // Двигаемся вверх, пока не дойдём до верхней границы
+        else {
+            --i;
+        }
+
+        // После прохождения одного слоя спирали обновляем границы
+        if ((i == Ibeg + 1) && (j == Jbeg) && (Jbeg != N - Jfin - 1)) {
+            ++Ibeg;  // Сдвигаем верхнюю границу вниз
+            ++Ifin;  // Сдвигаем нижнюю границу вверх
+            ++Jbeg;  // Сдвигаем левую границу вправо
+            ++Jfin;  // Сдвигаем правую границу влево
+        }
+
         ++k;
     }
 
-    
-
-    for (int i = 0; i < N; ++i){
-
+    // Вывод матрицы
+    for (int i = 0; i < N; ++i) {
         for (int j = 0; j < N; ++j)
-
-            printf("%d", matrix[i][j]);
-
-        printf("\n");
+            printf("%d ", matrix[i][j]);
+        printf("\n"); 
     }
 
+    return 0;
 }
